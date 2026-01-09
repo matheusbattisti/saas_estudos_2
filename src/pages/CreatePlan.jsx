@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Sparkles, Loader2, BookOpen, Clock } from 'lucide-react';
 import { useToast } from '../contexts/ToastContext';
+import { API_URL } from '../config';
 
 const CreatePlan = () => {
     const [theme, setTheme] = useState('');
@@ -19,7 +20,7 @@ const CreatePlan = () => {
 
         try {
             const user = JSON.parse(localStorage.getItem('user'));
-            const response = await fetch('http://localhost:3000/api/generate-plan', {
+            const response = await fetch(`${API_URL}/api/generate-plan`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, Trash2, CheckCircle, Book } from 'lucide-react';
+import { API_URL } from '../config';
 
 const PlanDetails = () => {
     const { id } = useParams();
@@ -18,7 +19,7 @@ const PlanDetails = () => {
                     return;
                 }
 
-                const response = await fetch(`http://localhost:3000/api/plans/${id}?userId=${user.id}`);
+                const response = await fetch(`${API_URL}/api/plans/${id}?userId=${user.id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setPlan(data.plan);
@@ -49,7 +50,7 @@ const PlanDetails = () => {
 
         try {
             const user = JSON.parse(localStorage.getItem('user'));
-            const response = await fetch(`http://localhost:3000/api/plans/${id}?userId=${user.id}`, {
+            const response = await fetch(`${API_URL}/api/plans/${id}?userId=${user.id}`, {
                 method: 'DELETE',
             });
             if (response.ok) {

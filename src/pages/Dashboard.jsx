@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, Trash2, Clock, Calendar, BookOpen, LogOut } from 'lucide-react';
 import { useToast } from '../contexts/ToastContext';
 
+import { API_URL } from '../config';
+
 const Dashboard = () => {
     const [user, setUser] = useState(null);
     const [plans, setPlans] = useState([]);
@@ -23,7 +25,7 @@ const Dashboard = () => {
 
     const fetchPlans = async (userId) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/plans?userId=${userId}`);
+            const response = await fetch(`${API_URL}/api/plans?userId=${userId}`);
             if (response.ok) {
                 const data = await response.json();
                 setPlans(data.plans);
@@ -41,7 +43,7 @@ const Dashboard = () => {
         if (!window.confirm('Tem certeza que deseja excluir este plano?')) return;
 
         try {
-            const response = await fetch(`http://localhost:3000/api/plans/${id}?userId=${user.id}`, {
+            const response = await fetch(`${API_URL}/api/plans/${id}?userId=${user.id}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
